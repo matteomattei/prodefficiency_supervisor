@@ -1,0 +1,16 @@
+<?xml version='1.0' encoding='utf-8'?>
+<widget id="com.matteomattei.testbarcode" version="0.0.1" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
+    <name>PE Supervisor</name>
+    <description>
+        Production Efficiency Supervisor application
+    </description>
+    <author email="matteo.mattei@gmail.com" href="http://www.matteomattei.com">
+        Matteo Mattei
+    </author>
+    <content src="index.html" />
+    <access origin="*" />
+    <icon height="512" src="res/icon/icon-512.png" width="512" />
+    <icon cdv:platform="android" height="96" src="res/icon/icon-96.png" width="96" />
+    <icon cdv:platform="blackberry" height="80" src="res/icon/icon-80.png" width="80" />
+    <icon cdv:platform="ios" height="144" src="res/icon/icon-144.png" width="144" />
+</widget>
