@@ -33,4 +33,4 @@ cat >> config.xml <<EOF
 </widget>
 EOF
 
-#cordova build
+cordova build

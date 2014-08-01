@@ -16,7 +16,7 @@ Clone project
 
 ```
 $ git clone https://github.com/matteomattei/prodefficiency_supervisor.git
-$ ./generate "PE Supervisor" "Production Efficiency Supervisor application" matteo.mattei@gmail.com http://www.matteomattei.com "Matteo Mattei" 
+$ ./generate.sh "PE Supervisor" "Production Efficiency Supervisor application" matteo.mattei@gmail.com http://www.matteomattei.com "Matteo Mattei" 
 ```
 
 Run the emulator:
