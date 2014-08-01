@@ -16,26 +16,13 @@ Clone project
 
 ```
 $ git clone https://github.com/matteomattei/prodefficiency_supervisor.git
+$ ./generate "PE Supervisor" "Production Efficiency Supervisor application" matteo.mattei@gmail.com http://www.matteomattei.com "Matteo Mattei" 
 ```
 
-```
-$ cordova create prodefficiency_supervisor
-$ cd prodefficiency_supervisor
-$ cordova platform add android
-```
-
-
-Install plugins:
-----------------
+Run the emulator:
+-----------------
 
 ```
-cordova plugins add https://github.com/wildabeast/BarcodeScanner.git
-```
-
-Run it:
--------
-
-```
-$ cordova build
-$ cordova serve android
+$ cd cordova_project
+$ cordova emulate 
 ```
