@@ -14,38 +14,123 @@
 	<script type="text/javascript" src="js/main.js"></script>
 </head>
 <body>
-<div data-role="page" id="homePage">
-    <div data-theme="b" data-role="header">
-        <h3>PE Supervisor</h3>
-        <a data-role="button" href="#" data-iconpos="right" data-mini="true" class="ui-btn-right" onclick="quit()" style="white-space: nowrap !important; overflow: visible !important;" >Exit</a>
+    <div data-role="page" id="normal">
+        <div data-theme="b" data-role="header">
+            <h3>PE Supervisor</h3>
+            <a data-role="button" href="#" data-iconpos="right" data-mini="true" class="ui-btn-right" onclick="quit()" style="white-space: nowrap !important; overflow: visible !important;" >Exit</a>
+        </div>
+        <div data-role="content">
+            <div class="ui-grid-a">
+                <div class="ui-block-a"><a id="normal_bt_bulk" data-theme="" data-role="button" href="#" data-icon="tag" data-mini="true" data-iconpos="left">Bulk</a></div>
+                <div class="ui-block-b">
+                    <label for="normal_bc_bulk" class="ui-hidden-accessible">Bulk:</label>
+                    <input type="text" name="normal_bc_bulk" id="normal_bc_bulk" placeholder="" value="" data-mini="true" disabled="disabled" data-clear-btn="true" />
+                </div>
+                <div class="ui-block-a"><a id="normal_bt_operation" data-theme="" data-role="button" href="#" data-icon="clock" data-mini="true" data-iconpos="left">Operation</a></div>
+                <div class="ui-block-b">
+                    <label for="normal_bc_operation" class="ui-hidden-accessible">Operation:</label>
+                    <input type="text" name="normal_bc_operation" id="normal_bc_operation" placeholder="" value="" data-mini="true" disabled="disabled" data-clear-btn="true" />
+                </div>
+                <div class="ui-block-a"><a id="normal_bt_employee" data-theme="" data-role="button" href="#" data-icon="user" data-mini="true" data-iconpos="left">Employee</a></div>
+                <div class="ui-block-b">
+                    <label for="normal_bc_employee" class="ui-hidden-accessible">Employee:</label>
+                    <input type="text" name="normal_bc_employee" id="normal_bc_employee" placeholder="" value="" data-mini="true" disabled="disabled" data-clear-btn="true" />
+                </div>
+            </div>
+            <div class="ui-field-contain">
+                <label for="normal_scan_date">Scan date</label>
+                <input type="date" name="normal_scan_date" id="normal_scan_date" value="" onchange="date_select('normal')" />
+            </div>
+            <br />
+            <div id="normal_result"></div>
+            <br />
+            <a id="normal_bt_submit" data-theme="" data-role="button" href="#" data-icon="forward" data-iconpos="left">Send to server</a>
+        </div>
+        <div data-theme="b" data-role="footer" data-position="fixed">
+            <div data-role="navbar">
+                <ul>
+                    <li><a href="#normal" class="ui-btn-active ui-state-persist" data-transition="none">Normal</a></li>
+                    <li><a href="#flag_no" data-transition="none">Flag no</a></li>
+                    <li><a href="#info" data-transition="none">Info</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="ui-loader-background"></div>
     </div>
- 
-    <div data-role="content">
-        <a id="bc1" data-theme="" data-role="button" href="#" data-icon="user" data-iconpos="left" onclick="bc1()">Scan Employee</a>
-	<label for="bc1_txt" class="ui-hidden-accessible">Employee:</label>
-	<input type="text" name="bc1_txt" id="bc1_txt" placeholder="Employee barcode" value="" data-mini="true" disabled="disabled" />
 
-        <a id="bc2" data-theme="" data-role="button" href="#" data-icon="tag" data-iconpos="left" onclick="bc2()">Scan Bulk</a>
-	<label for="bc2_txt" class="ui-hidden-accessible">Bulk:</label>
-	<input type="text" name="bc2_txt" id="bc2_txt" placeholder="Bulk barcode" value="" data-mini="true" disabled="disabled" />
-
-        <a id="bc3" data-theme="" data-role="button" href="#" data-icon="clock" data-iconpos="left" onclick="bc3()">Scan Operation</a>
-	<label for="bc3_txt" class="ui-hidden-accessible">Operation:</label>
-	<input type="text" name="bc3_txt" id="bc3_txt" placeholder="Operation barcode" value="" data-mini="true" disabled="disabled" />
-
-	<input type="date" name="scan_date" id="scan_date" value="" />
-
-	<br />
-        <div id="result"></div>
-	<br />
-        <a id="bt_submit" data-theme="" data-role="button" href="#" data-icon="forward" data-iconpos="left" onclick="submit_to_server()">Send to server</a>
+    <div data-role="page" id="flag_no">
+        <div data-theme="b" data-role="header">
+            <h3>PE Supervisor</h3>
+            <a data-role="button" href="#" data-iconpos="right" data-mini="true" class="ui-btn-right" onclick="quit()" style="white-space: nowrap !important; overflow: visible !important;" >Exit</a>
+        </div>
+        <div data-role="main" class="ui-content">
+            <div class="ui-grid-a">
+                <div class="ui-block-a"><a id="flagno_bt_bulk" data-theme="" data-role="button" href="#" data-icon="tag" data-mini="true" data-iconpos="left">Bulk</a></div>
+                <div class="ui-block-b">
+                    <label for="flagno_bc_bulk" class="ui-hidden-accessible">Bulk:</label>
+                    <input type="text" name="flagno_bc_bulk" id="flagno_bc_bulk" placeholder="" value="" data-mini="true" disabled="disabled" data-clear-btn="true" />
+                </div>
+                <div class="ui-block-a"><a id="flagno_bt_employee" data-theme="" data-role="button" href="#" data-icon="user" data-mini="true" data-iconpos="left">Employee</a></div>
+                <div class="ui-block-b">
+                    <label for="flagno_bc_employee" class="ui-hidden-accessible">Employee:</label>
+                    <input type="text" name="flagno_bc_employee" id="flagno_bc_employee" placeholder="" value="" data-mini="true" disabled="disabled" data-clear-btn="true" />
+                </div>
+            </div>
+            <div class="ui-field-contain">
+                <label for="flagno_operation" class="select ui-hidden-accessible">Operation</label>
+                <select name="flagno_operation" id="flagno_operation" data-native-menu="false" onchange="operation_flagno_select(this)">
+                    <option>Select Operation</option>
+                    <option value="op1">Operation 1</option>
+                    <option value="op2">Operation 2</option>
+                    <option value="op3">Operation 3</option>
+                    <option value="op4">Operation 4</option>
+                </select>
+            </div>
+            <div class="ui-field-contain">
+                <label for="flagno_scan_date">Scan date</label>
+                <input type="date" name="flagno_scan_date" id="flagno_scan_date" value="" onchange="date_select('flagno')" />
+            </div>
+            <div class="ui-field-contain" id="flagno_hours_container">
+                <label for="flagno_hours">Hours</label>
+                <input type="range" id="flagno_hours" name="flagno_hours" value="0" min="0" max="10" step="1" />
+            </div>
+            <div class="ui-field-contain" id="flagno_minutes_container">
+                <label for="flagno_minutes">Minutes</label>
+                <input type="range" id="flagno_minutes" name="flagno_minutes" value="0" min="0" max="59" step="5" />
+            </div>
+            <br />
+            <div id="flagno_result"></div>
+            <br />
+            <a id="flagno_bt_submit" data-theme="" data-role="button" href="#" data-icon="forward" data-iconpos="left">Send to server</a>
+        </div>
+        <div data-theme="b" data-role="footer" data-position="fixed">
+            <div data-role="navbar">
+                <ul>
+                    <li><a href="#normal" data-transition="none">Normal</a></li>
+                    <li><a href="#flag_no" class="ui-btn-active ui-state-persist" data-transition="none">Flag no</a></li>
+                    <li><a href="#info" data-transition="none">Info</a></li>
+                </ul>
+            </div>
+        </div>
     </div>
- 
-    <div data-theme="b" data-role="footer" data-position="fixed">
-        <h3>&copy; 2014 - <a href="http://www.matteomattei.com">Matteo Mattei</a></h3>
-    </div>
 
-    <div class="ui-loader-background"></div>
-</div>
+    <div data-role="page" id="info">
+        <div data-theme="b" data-role="header">
+            <h3>PE Supervisor</h3>
+            <a data-role="button" href="#" data-iconpos="right" data-mini="true" class="ui-btn-right" onclick="quit()" style="white-space: nowrap !important; overflow: visible !important;" >Exit</a>
+        </div>
+        <div data-role="main" class="ui-content">
+          <h3>&copy; 2014 - <a href="http://www.matteomattei.com">Matteo Mattei</a></h3>
+        </div>
+        <div data-theme="b" data-role="footer" data-position="fixed">
+            <div data-role="navbar">
+                <ul>
+                    <li><a href="#normal" data-transition="none">Normal</a></li>
+                    <li><a href="#flag_no" data-transition="none">Flag no</a></li>
+                    <li><a href="#info" class="ui-btn-active ui-state-persist" data-transition="none">Info</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
 </body>
 </html>
