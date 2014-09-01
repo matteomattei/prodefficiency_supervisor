@@ -7,6 +7,8 @@ var app = {
     bind: function() {
         document.addEventListener("deviceready", this.deviceready, false);
         document.addEventListener("backbutton", closeScan, false);
+        //document.addEventListener("online", function(){alert('online');}, false);
+        //document.addEventListener("offline", function(){alert('offline');}, false);
         $('#normal_bt_employee').on("tap", bc_pressed);
         $('#normal_bt_bulk').on("tap", bc_pressed);
         $('#normal_bt_operation').on("tap", bc_pressed);
@@ -30,7 +32,16 @@ var app = {
 var normal_data = {};
 var flagno_data = {};
 var scan_in_progress = false;
-var post_url = 'http://matteomattei.tk/test.php';
+//var post_url = 'http://matteomattei.tk/test.php';
+var post_url = 'http://192.168.0.11/supervisor_input.php';
+
+function is_wifi_enable(){
+/*
+    var networkState = navigator.connection.type;
+    return (networkState == Connection.WIFI);
+*/
+return true;
+}
 
 function bc_pressed(){
     var elem_id = $(this).attr('id');
@@ -111,6 +122,7 @@ function reset_fields(){
     normal_data['employee']='';
     normal_data['bulk']='';
     normal_data['operation']='';
+    normal_data['line_id'] = window.localStorage.getItem('line_id');
 
     /* flag no page */
     $('#flagno_bt_submit').addClass('ui-disabled');
@@ -126,29 +138,52 @@ function reset_fields(){
     flagno_data['operation']='';
     flagno_data['hours']='0';
     flagno_data['minutes']='0';
+    flagno_data['line_id'] = window.localStorage.getItem('line_id');
 }
 
 function normal_submit(){
     /* here we have to subm it the data to the server */
+    if(!is_wifi_enable()){
+        alert('wifi connection is not enable');
+        return false;
+    }
     $.mobile.loading('show');
     $.post(post_url,normal_data,function(data){
-        //$('#result').html(data);
-        alert(data);
+        if(data.OK != undefined && data.OK != ''){
+            alert(data.OK);
+            $.mobile.loading('hide');
+            reset_fields();
+        }else{
+            alert(data.ERR);
+            $.mobile.loading('hide');
+        }
+    },'json')
+    .fail(function(){
+        alert('Communication error!');
         $.mobile.loading('hide');
-        /* reset all fields */
-        reset_fields();
     });
 }
 
 function flagno_submit(){
     /* here we have to subm it the data to the server */
+    if(!is_wifi_enable()){
+        alert('wifi connection is not enable');
+        return false;
+    }
     $.mobile.loading('show');
     $.post(post_url,flagno_data,function(data){
-        //$('#result').html(data);
-        alert(data);
+        if(data.OK != undefined && data.OK != ''){
+            alert(data.OK);
+            $.mobile.loading('hide');
+            reset_fields();
+        }else{
+            alert(data.ERR);
+            $.mobile.loading('hide');
+        }
+    },'json')
+    .fail(function(){
+        alert('Communication error!');
         $.mobile.loading('hide');
-        /* reset all fields */
-        reset_fields();
     });
 }
 
@@ -184,13 +219,24 @@ function startScan(elem, page) {
     });
 }
 
-//$(document).ready(function() {
-//    $('.ui-input-text').removeClass('ui-state-disabled'); /* this is needed only to have a better graphic for input text fields */
-//    reset_fields();
-//    app.initialize();
-//});
+function save_line_id(){
+    var line_id = $('#line_id').val();
+    if(line_id != ''){
+        window.localStorage.setItem('line_id',line_id);
+        $("body").pagecontainer("change", "#normal", {
+            transition: 'slidedown',
+            reload    : true
+        });
+    }
+}
 
 $(document).on('pageinit','#normal',function(){
+    if(window.localStorage.getItem('line_id')==null){
+        $("body").pagecontainer("change", "#line_input", {
+            transition: 'slidedown',
+            reload    : true
+        });
+    }
     /* this is needed only to have a better graphic for input text fields */
     $('.ui-input-text').removeClass('ui-state-disabled');
     reset_fields();
