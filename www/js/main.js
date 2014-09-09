@@ -223,6 +223,7 @@ function save_line_id(){
     var line_id = $('#line_id').val();
     if(line_id != ''){
         window.localStorage.setItem('line_id',line_id);
+        $('.line_id').text(' - '+line_id);
         $("body").pagecontainer("change", "#normal", {
             transition: 'slidedown',
             reload    : true
@@ -231,12 +232,14 @@ function save_line_id(){
 }
 
 $(document).on('pageinit','#normal',function(){
-    if(window.localStorage.getItem('line_id')==null){
+    var line_id = window.localStorage.getItem('line_id');
+    if(line_id==null){
         $("body").pagecontainer("change", "#line_input", {
             transition: 'slidedown',
             reload    : true
         });
     }
+    $('.line_id').text(' - '+line_id);
     /* this is needed only to have a better graphic for input text fields */
     $('.ui-input-text').removeClass('ui-state-disabled');
     reset_fields();

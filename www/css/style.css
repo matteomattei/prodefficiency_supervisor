@@ -13,3 +13,7 @@
 .ui-loading .ui-loader-background {
     display:block;
 }
+
+.ui-header .ui-title, .ui-footer .ui-title {
+    margin: 0 10%;
+}

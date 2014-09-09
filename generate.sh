@@ -17,6 +17,7 @@ fi
 
 cordova create --link-to=www cordova_project com.matteomattei.${PROJECT_FOLDER} "${PROJECT_NAME}"
 cd cordova_project
+ln -s ../res .
 cordova platform add android
 cordova plugins add https://github.com/wildabeast/BarcodeScanner.git
 
@@ -26,10 +27,13 @@ sed -i "{s#<author email=.*#<author email=\"${AUTHOR_EMAIL}\" href=\"${AUTHOR_WE
 sed -i "{s#Apache Cordova Team#${AUTHOR_NAME}#g}" config.xml
 sed -i '$d' config.xml
 cat >> config.xml <<EOF
-    <icon height="512" src="www/images/icon/icon-512.png" width="512" />
-    <icon cdv:platform="android" height="96" src="www/images/icon/icon-96.png" width="96" />
-    <icon cdv:platform="blackberry" height="80" src="www/images/icon/icon-80.png" width="80" />
-    <icon cdv:platform="ios" height="144" src="www/images/icon/icon-144.png" width="144" />
+    <platform name="android">
+        <icon src="res/drawable-mdpi/ic_launcher.png" density="mdpi" />
+        <icon src="res/drawable-hdpi/ic_launcher.png" density="hdpi" />
+        <icon src="res/drawable-xhdpi/ic_launcher.png" density="xhdpi" />
+        <icon src="res/drawable-xxhdpi/ic_launcher.png" density="xxhdpi" />
+        <icon src="res/drawable-xxxhdpi/ic_launcher.png" density="xxxhdpi" />
+     </platform>
 </widget>
 EOF
 
