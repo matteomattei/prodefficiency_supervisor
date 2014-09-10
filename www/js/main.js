@@ -10,11 +10,11 @@ var app = {
         //document.addEventListener("online", function(){alert('online');}, false);
         //document.addEventListener("offline", function(){alert('offline');}, false);
         $('#normal_bt_employee').on("tap", bc_pressed);
-        $('#normal_bt_bulk').on("tap", bc_pressed);
+        $('#normal_bt_bundle').on("tap", bc_pressed);
         $('#normal_bt_operation').on("tap", bc_pressed);
         $('#normal_bt_submit').on("tap", normal_submit);
         $('#flagno_bt_employee').on("tap", bc_pressed);
-        $('#flagno_bt_bulk').on("tap", bc_pressed);
+        $('#flagno_bt_bundle').on("tap", bc_pressed);
         $('#flagno_bt_submit').on("tap", flagno_submit);
         $('#flagno_hours_container').on("slidestop", '#flagno_hours', hours_flagno_select);
         $('#flagno_minutes_container').on("slidestop", '#flagno_minutes', minutes_flagno_select);
@@ -45,9 +45,9 @@ return true;
 
 function bc_pressed(){
     var elem_id = $(this).attr('id');
-    if(elem_id == 'normal_bt_employee' || elem_id == 'normal_bt_bulk' || elem_id == 'normal_bt_operation'){
+    if(elem_id == 'normal_bt_employee' || elem_id == 'normal_bt_bundle' || elem_id == 'normal_bt_operation'){
         startScan(elem_id.split('_')[2],'normal');
-    } else if(elem_id == 'flagno_bt_employee' || elem_id == 'flagno_bt_bulk'){
+    } else if(elem_id == 'flagno_bt_employee' || elem_id == 'flagno_bt_bundle'){
         startScan(elem_id.split('_')[2],'flagno');
     }
 }
@@ -91,14 +91,14 @@ function closeScan(){
 function check_params(){
     /* Check if all params are correctly set and enable the submit button*/
     /* normal page */
-    if(normal_data['date']!='' && normal_data['bulk']!='' && normal_data['operation']!='' && normal_data['employee']!=''){
+    if(normal_data['date']!='' && normal_data['bundle']!='' && normal_data['operation']!='' && normal_data['employee']!=''){
         $('#normal_bt_submit').removeClass('ui-disabled');
     } else {
         $('#normal_bt_submit').addClass('ui-disabled');
     }
     
     /* flagno page */
-    if(flagno_data['date']!='' && flagno_data['employee']!='' && flagno_data['bulk']!='' && flagno_data['operation']!='' && !(flagno_data['hours']=='0' && flagno_data['minutes']=='0'))
+    if(flagno_data['date']!='' && flagno_data['employee']!='' && flagno_data['bundle']!='' && flagno_data['operation']!='' && !(flagno_data['hours']=='0' && flagno_data['minutes']=='0'))
     {
         $('#flagno_bt_submit').removeClass('ui-disabled');
     } else {
@@ -115,26 +115,26 @@ function reset_fields(){
     /* normal page */
     $('#normal_bt_submit').addClass('ui-disabled');
     $('#normal_bc_employee').val('');
-    $('#normal_bc_bulk').val('');
+    $('#normal_bc_bundle').val('');
     $('#normal_bc_operation').val('');
     $('#normal_scan_date').val(d.toISOString().split('T')[0]);
     normal_data['date']=$('#normal_scan_date').val();
     normal_data['employee']='';
-    normal_data['bulk']='';
+    normal_data['bundle']='';
     normal_data['operation']='';
     normal_data['line_id'] = window.localStorage.getItem('line_id');
 
     /* flag no page */
     $('#flagno_bt_submit').addClass('ui-disabled');
     $('#flagno_bc_employee').val('');
-    $('#flagno_bc_bulk').val('');
+    $('#flagno_bc_bundle').val('');
     $('#flagno_operation').val('');
     $('#flagno_scan_date').val(d.toISOString().split('T')[0]);
     $('#flagno_hours').val('0');
     $('#flagno_minutes').val('0');
     flagno_data['date']=$('#flagno_scan_date').val();
     flagno_data['employee']='';
-    flagno_data['bulk']='';
+    flagno_data['bundle']='';
     flagno_data['operation']='';
     flagno_data['hours']='0';
     flagno_data['minutes']='0';
