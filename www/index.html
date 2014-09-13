@@ -26,6 +26,12 @@
                     <label for="normal_bc_bundle" class="ui-hidden-accessible">Bundle:</label>
                     <input type="text" name="normal_bc_bundle" id="normal_bc_bundle" placeholder="" value="" data-mini="true" disabled="disabled" data-clear-btn="true" />
                 </div>
+                <div class="ui-field-contain">
+                    <label for="normal_manual_operation" class="select ui-hidden-accessible">Operation - manual</label>
+                    <select name="normal_manual_operation" id="normal_manual_operation" data-native-menu="false" onchange="operation_manual_select(this)" data-mini="true">
+                        <option>Select Operation (for bundle)</option>
+                    </select>
+                </div>
                 <div class="ui-block-a"><a id="normal_bt_operation" data-theme="" data-role="button" href="#" data-icon="clock" data-mini="true" data-iconpos="left">Operation</a></div>
                 <div class="ui-block-b">
                     <label for="normal_bc_operation" class="ui-hidden-accessible">Operation:</label>
@@ -78,7 +84,7 @@
             </div>
             <div class="ui-field-contain">
                 <label for="flagno_operation" class="select ui-hidden-accessible">Operation</label>
-                <select name="flagno_operation" id="flagno_operation" data-native-menu="false" onchange="operation_flagno_select(this)">
+                <select name="flagno_operation" id="flagno_operation" data-native-menu="false" onchange="operation_flagno_select(this)" data-mini="true">
                     <option>Select Operation</option>
                     <option value="op1">Operation 1</option>
                     <option value="op2">Operation 2</option>

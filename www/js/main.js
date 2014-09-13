@@ -34,6 +34,7 @@ var flagno_data = {};
 var scan_in_progress = false;
 //var post_url = 'http://matteomattei.tk/test.php';
 var post_url = 'http://192.168.0.11/supervisor_input.php';
+var get_operations = 'http://192.168.0.11/supervisor_get_bundle_operations.php';
 
 function is_wifi_enable(){
 /*
@@ -80,6 +81,26 @@ function operation_flagno_select(elem){
     check_params();
 }
 
+function operation_manual_select(elem){
+    /* callback for onchange on operation manual */
+    alert('you selected '+elem.value);
+    normal_data['operation'] = elem.value;
+    $('#normal_bc_operation').val(elem.value);
+}
+
+function fill_manual_operation(bundle){
+    /* get all operation for a bundle and enable select control */
+    $.post(get_operations,{'bundle':bundle},function(operations){
+        $('#normal_manual_operation').empty();
+        $('#normal_manual_operation').append('<option>Select Operation (for bundle)</option>');
+        $.each(operations, function(k,v){
+            var opt = '<option value="' +k+ '">'+k+' - '+v+'</option>';
+            $('#normal_manual_operation').append(opt);
+        });
+        $('#normal_manual_operation').selectmenu('refresh',true).selectmenu('enable');
+    },'json');
+}
+
 function closeScan(){
     /* this is an hack to prevent exiting from the application when
        someone clicks on back button during when the scanner is active */
@@ -116,6 +137,7 @@ function reset_fields(){
     $('#normal_bt_submit').addClass('ui-disabled');
     $('#normal_bc_employee').val('');
     $('#normal_bc_bundle').val('');
+    $('#normal_manual_operation').selectmenu('disable').empty();
     $('#normal_bc_operation').val('');
     $('#normal_scan_date').val(d.toISOString().split('T')[0]);
     normal_data['date']=$('#normal_scan_date').val();
@@ -203,6 +225,9 @@ function startScan(elem, page) {
             if(page == 'normal'){
                 normal_data[elem] = result.text;
                 $('#normal_bc_'+elem).val(result.text);
+                if(elem == 'bundle'){
+                    fill_manual_operation(result.text);
+                }
             } else if(page == 'flagno'){
                 flagno_data[elem] = result.text;
                 $('#flagno_bc_'+elem).val(result.text);
