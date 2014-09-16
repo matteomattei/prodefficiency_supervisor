@@ -1,3 +1,4 @@
+var app_version = '1.0';
 var app = {
  
     initialize: function() {
@@ -32,9 +33,10 @@ var app = {
 var normal_data = {};
 var flagno_data = {};
 var scan_in_progress = false;
-//var post_url = 'http://matteomattei.tk/test.php';
-var post_url = 'http://192.168.0.11/supervisor_input.php';
-var get_operations = 'http://192.168.0.11/supervisor_get_bundle_operations.php';
+//var base_url = 'http://matteomattei.tk/pe';
+var base_url = 'http://192.168.0.11';
+var post_url = base_url+'/supervisor_input.php';
+var get_operations = base_url+'/supervisor_get_bundle_operations.php';
 
 function is_wifi_enable(){
 /*
@@ -65,13 +67,13 @@ function date_select(page){
 
 function hours_flagno_select(){
     /* callback for onchange on flagno hours */
-    flagno_data['hours'] = $('#flagno_hours').val();
+    flagno_data['tot_ore_flag_no'] = $('#flagno_hours').val();
     check_params();
 }
 
 function minutes_flagno_select(){
     /* callback for onchange on flagno minutes */
-    flagno_data['minutes'] = $('#flagno_minutes').val();
+    flagno_data['tot_min_flag_no'] = $('#flagno_minutes').val();
     check_params();
 }
 
@@ -83,7 +85,6 @@ function operation_flagno_select(elem){
 
 function operation_manual_select(elem){
     /* callback for onchange on operation manual */
-    alert('you selected '+elem.value);
     normal_data['operation'] = elem.value;
     $('#normal_bc_operation').val(elem.value);
 }
@@ -91,8 +92,7 @@ function operation_manual_select(elem){
 function fill_manual_operation(bundle){
     /* get all operation for a bundle and enable select control */
     $.post(get_operations,{'bundle':bundle},function(operations){
-        $('#normal_manual_operation').empty();
-        $('#normal_manual_operation').append('<option>Select Operation (for bundle)</option>');
+        $('#normal_manual_operation').empty().append('<option>Select Operation (for bundle)</option>');
         $.each(operations, function(k,v){
             var opt = '<option value="' +k+ '">'+k+' - '+v+'</option>';
             $('#normal_manual_operation').append(opt);
@@ -119,7 +119,7 @@ function check_params(){
     }
     
     /* flagno page */
-    if(flagno_data['date']!='' && flagno_data['employee']!='' && flagno_data['bundle']!='' && flagno_data['operation']!='' && !(flagno_data['hours']=='0' && flagno_data['minutes']=='0'))
+    if(flagno_data['date']!='' && flagno_data['employee']!='' && flagno_data['bundle']!='' && flagno_data['operation']!='' && !(flagno_data['tot_ore_flag_no']=='0' && flagno_data['tot_min_flag_no']=='0'))
     {
         $('#flagno_bt_submit').removeClass('ui-disabled');
     } else {
@@ -144,7 +144,7 @@ function reset_fields(){
     normal_data['employee']='';
     normal_data['bundle']='';
     normal_data['operation']='';
-    normal_data['line_id'] = window.localStorage.getItem('line_id');
+    normal_data['id_device'] = window.localStorage.getItem('id_device');
 
     /* flag no page */
     $('#flagno_bt_submit').addClass('ui-disabled');
@@ -158,9 +158,9 @@ function reset_fields(){
     flagno_data['employee']='';
     flagno_data['bundle']='';
     flagno_data['operation']='';
-    flagno_data['hours']='0';
-    flagno_data['minutes']='0';
-    flagno_data['line_id'] = window.localStorage.getItem('line_id');
+    flagno_data['tot_ore_flag_no']='0';
+    flagno_data['tot_min_flag_no']='0';
+    flagno_data['id_device'] = window.localStorage.getItem('id_device');
 }
 
 function normal_submit(){
@@ -244,11 +244,11 @@ function startScan(elem, page) {
     });
 }
 
-function save_line_id(){
-    var line_id = $('#line_id').val();
-    if(line_id != ''){
-        window.localStorage.setItem('line_id',line_id);
-        $('.line_id').text(' - '+line_id);
+function save_id_device(){
+    var id_device = $('#id_device').val();
+    if(id_device != ''){
+        window.localStorage.setItem('id_device',id_device);
+        $('.id_device').text(' - '+id_device);
         $("body").pagecontainer("change", "#normal", {
             transition: 'slidedown',
             reload    : true
@@ -257,14 +257,15 @@ function save_line_id(){
 }
 
 $(document).on('pageinit','#normal',function(){
-    var line_id = window.localStorage.getItem('line_id');
-    if(line_id==null){
+    $('#version').append(app_version);
+    var id_device = window.localStorage.getItem('id_device');
+    if(id_device==null){
         $("body").pagecontainer("change", "#line_input", {
             transition: 'slidedown',
             reload    : true
         });
     }
-    $('.line_id').text(' - '+line_id);
+    $('.id_device').text(' - '+id_device);
     /* this is needed only to have a better graphic for input text fields */
     $('.ui-input-text').removeClass('ui-state-disabled');
     reset_fields();

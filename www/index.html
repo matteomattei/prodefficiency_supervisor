@@ -16,7 +16,7 @@
 <body>
     <div data-role="page" id="normal">
         <div data-theme="b" data-role="header">
-            <h3>PE Supervisor<span class="line_id"></span></h3>
+            <h3>PE Supervisor<span class="id_device"></span></h3>
             <a data-role="button" href="#" data-iconpos="right" data-mini="true" class="ui-btn-right" onclick="quit()" style="white-space: nowrap !important; overflow: visible !important;" >Exit</a>
         </div>
         <div data-role="content">
@@ -66,7 +66,7 @@
 
     <div data-role="page" id="flag_no">
         <div data-theme="b" data-role="header">
-            <h3>PE Supervisor<span class="line_id"></span></h3>
+            <h3>PE Supervisor<span class="id_device"></span></h3>
             <a data-role="button" href="#" data-iconpos="right" data-mini="true" class="ui-btn-right" onclick="quit()" style="white-space: nowrap !important; overflow: visible !important;" >Exit</a>
         </div>
         <div data-role="main" class="ui-content">
@@ -134,11 +134,12 @@
 
     <div data-role="page" id="info">
         <div data-theme="b" data-role="header">
-            <h3>PE Supervisor<span class="line_id"></span></h3>
+            <h3>PE Supervisor<span class="id_device"></span></h3>
             <a data-role="button" href="#" data-iconpos="right" data-mini="true" class="ui-btn-right" onclick="quit()" style="white-space: nowrap !important; overflow: visible !important;" >Exit</a>
         </div>
         <div data-role="main" class="ui-content">
           <h3>&copy; 2014 - <a href="http://www.matteomattei.com">Matteo Mattei</a></h3>
+          <p>Production Efficiency - Version <span id="version"></span></p>
         </div>
         <div data-theme="b" data-role="footer" data-position="fixed">
             <div data-role="navbar">
@@ -156,8 +157,8 @@
             <h3>Insert the line ID</h3>
         </div>
         <div data-role="content">
-            <input type="text" id="line_id" placeholder="Line ID" />
-            <input data-role="button" data-mini="true" data-theme="b" data-inline="true" type="submit" id="addCat" value="Insert" onclick="save_line_id()" />
+            <input type="text" id="id_device" placeholder="Line ID" />
+            <input data-role="button" data-mini="true" data-theme="b" data-inline="true" type="submit" id="addCat" value="Insert" onclick="save_id_device()" />
         </div>
     </div>
 
