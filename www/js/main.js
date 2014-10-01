@@ -33,10 +33,10 @@ var app = {
 var normal_data = {};
 var flagno_data = {};
 var scan_in_progress = false;
-//var base_url = 'http://matteomattei.tk/pe';
 var base_url = 'http://192.168.0.11';
 var post_url = base_url+'/supervisor_input.php';
-var get_operations = base_url+'/supervisor_get_bundle_operations.php';
+var get_operations = base_url+'/supervisor_getoperations.php';
+var get_flagno_operations = base_url+'/supervisor_getoperations_flagno.php';
 
 function is_wifi_enable(){
 /*
@@ -98,6 +98,18 @@ function fill_manual_operation(bundle){
             $('#normal_manual_operation').append(opt);
         });
         $('#normal_manual_operation').selectmenu('refresh',true).selectmenu('enable');
+    },'json');
+}
+
+function fill_flagno_operations(){
+    /* get all flagno operation */
+    $.post(get_flagno_operations,function(operations){
+        $('#flagno_operation').empty().append('<option>Select Operation</option>');
+        $.each(operations, function(k,v){
+            var opt = '<option value="' +k+ '">'+k+' - '+v+'</option>';
+            $('#flagno_operation').append(opt);
+        });
+        $('#flagno_operation').selectmenu('refresh',true).selectmenu('enable');
     },'json');
 }
 
@@ -275,5 +287,6 @@ $(document).on('pageinit','#normal',function(){
 $(document).on('pageinit','#flag_no',function(){
     /* this is needed only to have a better graphic for input text fields */
     $('.ui-input-text').removeClass('ui-state-disabled');
+    fill_flagno_operations();
 });
 
